@@ -1,0 +1,142 @@
+[
+  {
+    "frage": "Nennen Sie fünf <b>typische Sensoren</b>, die in modernen Smartphones für die <b>Kontextwahrnehmung</b> genutzt werden.",
+    "antwort": "<ul><li>Beschleunigungssensor (Accelerometer)</li><li>Gyroskop</li><li>Magnetometer</li><li>Barometer</li><li>GNSS (GPS)</li></ul><img src=\"slide_8.png\">"
+  },
+  {
+    "frage": "Welche zwei <b>Web-APIs</b> werden im Browser verwendet, um auf Bewegungs- und Orientierungsdaten zuzugreifen?",
+    "antwort": "<ul><li><b>DeviceMotionEvent</b> API (für Beschleunigung & Rotation)</li><li><b>DeviceOrientationEvent</b> API (für absolute Ausrichtung)</li></ul><img src=\"slide_8.png\">"
+  },
+  {
+    "frage": "Welche Einschränkung haben <b>Web-APIs</b> bezüglich der <b>Sampling-Rate</b> im Vergleich zu nativem Code?",
+    "antwort": "Web-APIs bieten meist niedrigere und nicht garantierte Raten (oft <b>&lt; 60 Hz</b>), während nativer Code Zugriff auf höhere Raten (ca. 100–200 Hz) und genauere Kontrolle bietet.<img src=\"slide_10.png\">"
+  },
+  {
+    "frage": "Was ist eine sinnvolle, typische <b>Sampling-Rate</b> für die allgemeine <b>Aktivitätserkennung</b> (Human Activity Recognition)?",
+    "antwort": "Etwa <b>20–50 Hz</b>, abhängig von der Anwendung.<img src=\"slide_10.png\">"
+  },
+  {
+    "frage": "Wie kann die <b>Interdependenz</b> (gegenseitige Abhängigkeit) von Sensorsignalen interpretiert werden? Nennen Sie zwei Sichtweisen.",
+    "antwort": "<ol><li>Als <b>Rauschen</b>: Wenn die Kopplung eine spezifische Messung stört (z.B. Bewegung stört optische Herzfrequenzmessung).</li><li>Als <b>zusätzliche Informationsquelle</b>: Wenn sie komplementäre Hinweise liefert (z.B. Bewegung stabilisiert Lichtmessung).</li></ol><img src=\"slide_11.png\">"
+  },
+  {
+    "frage": "Formulieren Sie das <b>Nyquist-Shannon-Abtasttheorem</b> mathematisch.",
+    "antwort": "\\(f_s > 2 \\cdot f_{\\text{max}}\\) <br><br> Die Abtastfrequenz \\(f_s\\) muss strikt größer sein als die doppelte maximale Frequenz \\(f_{\\text{max}}\\) im Signal.<img src=\"slide_12.png\">"
+  },
+  {
+    "frage": "Warum ist ein <b>Anti-Aliasing-Filter</b> (analoges Tiefpassfilter) vor dem Sampling notwendig?",
+    "antwort": "Um <b>Rauschfrequenzen</b> zu entfernen, die höher sind als die maximale Frequenz des Zielsignals (\\(f_{\\text{max}}\\)), da diese sonst durch das Sampling als falsche niedrige Frequenzen (Aliasing) im digitalen Signal erscheinen würden.<img src=\"slide_12.png\">"
+  },
+  {
+    "frage": "Warum ist es auf mobilen Betriebssystemen (Mobile OS) schwierig, ohne spezielle Hardware exakte <b>Sampling-Zeitpunkte</b> zu garantieren?",
+    "antwort": "Weil alle mobilen Betriebssysteme (Android, iOS) <b>keine Echtzeit-Betriebssysteme</b> (Non-Realtime OS) sind. Das Scheduling der CPU kann variieren, was zu Jitter beim Sampling führt.<img src=\"slide_13.png\">"
+  },
+  {
+    "frage": "Was versteht man unter <b>Time Windows</b> (Zeitfenstern) bei der Sensorverarbeitung?",
+    "antwort": "Die Segmentierung des kontinuierlichen Datenstroms in feste Zeitabschnitte (z.B. 1–5 Sekunden). Feature-Extraktion und Klassifikation werden pro Fenster durchgeführt.<img src=\"slide_14.png\">"
+  },
+  {
+    "frage": "Was ist der Vorteil von <b>überlappenden Fenstern</b> (Overlapping Windows) im Vergleich zu nicht-überlappenden?",
+    "antwort": "Sie <b>glätten die Vorhersagen</b> und verbessern die <b>zeitliche Kontinuität</b> der erkannten Aktivitäten, da der Kontext zwischen den Fenstern erhalten bleibt.<img src=\"slide_14.png\">"
+  },
+  {
+    "frage": "Nennen Sie einen Nachteil von sehr <b>kurzen Zeitfenstern</b> bei der Frequenzanalyse.",
+    "antwort": "Sie haben eine <b>schlechte Frequenzauflösung</b> und ein erhöhtes <b>spektrales Leck</b> (Spectral Leakage).<img src=\"slide_15.png\">"
+  },
+  {
+    "frage": "Nennen Sie einen Nachteil von sehr <b>langen Zeitfenstern</b>.",
+    "antwort": "Sie führen zu einer <b>höheren Latenz</b> (verzögerte Reaktion des Systems) und langsameren Updates.<img src=\"slide_15.png\">"
+  },
+  {
+    "frage": "Welches Problem verursacht ein <b>Rechteck-Fenster</b> (Rectangular Window) bei der FFT?",
+    "antwort": "Starkes <b>spektrales Leck</b> (Spectral Leakage) aufgrund der abrupten Kanten (Edge Effects) an den Fenstergrenzen.<img src=\"slide_16.png\">"
+  },
+  {
+    "frage": "Wozu dienen Fensterfunktionen wie <b>Hamming</b> oder <b>Hann</b>?",
+    "antwort": "Sie glätten die Kanten des Zeitfensters (Tapering) gegen Null, um das <b>spektrale Leck</b> (Edge Effects) zu minimieren, auf Kosten einer leicht verringerten Frequenzauflösung.<img src=\"slide_16.png\">"
+  },
+  {
+    "frage": "Was macht die <b>Fast Fourier Transform (FFT)</b> mit einem Signal?",
+    "antwort": "Sie transformiert das Signal vom <b>Zeitbereich</b> (Time Domain) in den <b>Frequenzbereich</b> (Frequency Domain).<img src=\"slide_17.png\">"
+  },
+  {
+    "frage": "Wie lautet die Formel für die <b>Frequenzauflösung</b> \\(\\Delta f\\) in Abhängigkeit von der Fensterlänge \\(T\\)?",
+    "antwort": "\\(\\Delta f = 1 / T\\) <br><br> (Je länger das Fenster, desto feiner die Auflösung).<img src=\"slide_17.png\">"
+  },
+  {
+    "frage": "Welchen Filter würden Sie anwenden, um die <b>Erdbeschleunigung</b> (Gravitation) aus einem Beschleunigungssignal zu entfernen?",
+    "antwort": "Einen <b>Hochpassfilter</b> (High-pass Filter), z.B. mit einer Grenzfrequenz \\(f_c \\approx 0.3\\text{ Hz}\\), da Gravitation ein statisches Signal (DC, 0 Hz) ist.<img src=\"slide_19.png\">"
+  },
+  {
+    "frage": "Welchen Filter nutzen Sie zur <b>Rauschunterdrückung</b> von hochfrequenten Vibrationen (z.B. &gt; 25 Hz) bei der Bewegungserkennung?",
+    "antwort": "Einen <b>Tiefpassfilter</b> (Low-pass Filter).<img src=\"slide_19.png\">"
+  },
+  {
+    "frage": "Was ist die Motivation für die Nutzung von <b>Features</b> (Merkmalen) statt Rohdaten?",
+    "antwort": "Um relevante Informationen zu extrahieren, das <b>Datenvolumen zu reduzieren</b> und eine stabile Klassifikation zu ermöglichen.<img src=\"slide_20.png\">"
+  },
+  {
+    "frage": "Nennen Sie drei Beispiele für <b>Zeitbereichs-Features</b> (Time-Domain).",
+    "antwort": "<ul><li>Mittelwert (Mean)</li><li>Varianz / Standardabweichung</li><li>RMS (Root Mean Square)</li><li>Signal Magnitude Area (SMA)</li><li>Zero-Crossing Rate</li></ul><img src=\"slide_21.png\">"
+  },
+  {
+    "frage": "Was misst das Feature <b>RMS</b> (Root Mean Square)?",
+    "antwort": "Die effektive <b>Energie</b> bzw. Intensität des Signals.<img src=\"slide_21.png\">"
+  },
+  {
+    "frage": "Was beschreibt das Feature <b>Signal Magnitude Area (SMA)</b>?",
+    "antwort": "Die Summe der absoluten Beschleunigungen über alle Achsen hinweg; ein Maß für die Gesamtaktivität.<img src=\"slide_21.png\">"
+  },
+  {
+    "frage": "Was indiziert eine hohe <b>Zero-Crossing Rate</b>?",
+    "antwort": "Eine hohe Frequenz von Nulldurchgängen, was ein Maß für die <b>Oszillationsrate</b> ist.<img src=\"slide_21.png\">"
+  },
+  {
+    "frage": "Was misst die <b>Signal-Korrelation</b> zwischen den Achsen x, y und z?",
+    "antwort": "Die Beziehung zwischen den Achsen, was Hinweise auf den <b>Bewegungstyp</b> gibt (z.B. hohe Korrelation bei linearen Bewegungen).<img src=\"slide_21.png\">"
+  },
+  {
+    "frage": "Nennen Sie zwei Beispiele für <b>Frequenzbereichs-Features</b>.",
+    "antwort": "<ul><li>Hauptfrequenz (Main Frequency \\(f_1\\))</li><li>Spektrale Energie in Bändern</li><li>Spektrale Entropie</li></ul><img src=\"slide_22.png\">"
+  },
+  {
+    "frage": "Was ist die <b>Hauptfrequenz</b> (\\(f_1\\)) und wofür ist sie nützlich?",
+    "antwort": "Die Frequenz mit der maximalen Energie. Sie ist nützlich zur Bestimmung von periodischen Aktivitäten wie der <b>Schrittfrequenz</b>.<img src=\"slide_22.png\">"
+  },
+  {
+    "frage": "Was deutet eine hohe <b>Spektrale Entropie</b> an?",
+    "antwort": "Eine hohe Unregelmäßigkeit oder viel <b>Rauschen</b> im Spektrum (im Gegensatz zu klaren periodischen Spitzen).<img src=\"slide_22.png\">"
+  },
+  {
+    "frage": "Nennen Sie zwei klassische <b>Machine Learning Modelle</b>, die häufig mit Features für Activity Recognition genutzt werden.",
+    "antwort": "<ul><li>k-Nearest Neighbors (kNN)</li><li>Decision Trees / Random Forest</li></ul><img src=\"slide_24.png\">"
+  },
+  {
+    "frage": "Wie unterscheiden sich <b>Deep Learning</b> Ansätze (CNN, LSTM) von klassischen ML-Ansätzen bezüglich der Eingabedaten?",
+    "antwort": "Sie können oft <b>Rohdaten</b> (oder Spektrogramme) direkt verarbeiten und Features selbstständig lernen, während klassische Ansätze manuell berechnete Features benötigen.<img src=\"slide_24.png\">"
+  },
+  {
+    "frage": "Warum ist der <b>Naive Ansatz</b> (CPU fragt Sensor 200x pro Sekunde ab) für das Sampling schlecht?",
+    "antwort": "Er führt zu <b>massivem Stromverbrauch</b>, da die CPU ständig aufwachen muss („Wake-locks“), was die Batterie in Stunden leert.<img src=\"slide_28.png\">"
+  },
+  {
+    "frage": "Was ist ein <b>Sensor Hub</b>?",
+    "antwort": "Ein dedizierter, <b>energieeffizienter Co-Prozessor</b> (Teil des SoC), der Sensordaten unabhängig von der Haupt-CPU sammelt und verarbeitet (Always-On).<img src=\"slide_28.png\">"
+  },
+  {
+    "frage": "Was versteht man unter <b>Buffering</b> (Batching) im Sensor Hub?",
+    "antwort": "Der Hub sammelt Daten in einem lokalen Speicher und meldet sie erst als gesammelten <b>Batch</b> (z.B. alle 10s) an die CPU, um Wake-ups zu minimieren.<img src=\"slide_28.png\">"
+  },
+  {
+    "frage": "Welche Rolle spielt <b>DMA</b> (Direct Memory Access) beim Datentransfer vom Sensor Hub?",
+    "antwort": "Der DMA-Controller kopiert den Daten-Batch <b>direkt in den Hauptspeicher (RAM)</b>, ohne dass die CPU involviert ist. Die CPU erhält erst danach einen Interrupt.<img src=\"slide_28.png\">"
+  },
+  {
+    "frage": "Wie unterscheidet sich der Sensor Hub in <b>High-End</b> Phones von dem in <b>Low-End</b> Phones?",
+    "antwort": "<ul><li><b>High-End:</b> Mächtiger AI Co-Prozessor, der auch komplexe ML-Tasks (z.B. Gestenerkennung) always-on berechnen kann.</li><li><b>Low-End:</b> Einfacher Mikrocontroller, der nur Daten sammelt (Batching).</li></ul><img src=\"slide_30.png\">"
+  },
+  {
+    "frage": "Was bedeutet der Parameter <code>{ frequency: 60 }</code> bei der Instanziierung eines Sensors in <b>JavaScript</b> (HTML5)?",
+    "antwort": "Es ist nur ein <b>Hinweis</b> (Hint) an den Browser, <b>keine Garantie</b>. Der Browser oder das OS können die Rate begrenzen.<img src=\"slide_34.png\">"
+  }
+]

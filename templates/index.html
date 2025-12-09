@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anki Deck Generator</title>
+</head>
+
+<body>
+    
+    <h1>Anki Deck Generator</h1>
+    <input type="file" id="pdfUpload" name="pdfFile" accept="application/pdf">
+    <textarea id="geminiResponse" rows="4" cols="50" placeholder="Enter Gemini JSON response here"></textarea>
+    <button>Generate Deck</button>
+    <p id="error"></p>
+
+    <script>
+
+        
+
+
+        document.querySelector('button').addEventListener('click', () => {
+
+            const formData = new FormData();
+            const geminiResponse = document.getElementById('geminiResponse').value;
+            const file = document.getElementById('pdfUpload').files[0];
+            formData.append("json", geminiResponse);
+            formData.append("pdf", file);
+            document.getElementById("error").innerText = "";
+
+            
+
+            fetch('/generate_deck', {
+                method: 'POST',
+                body: formData,
+            }).then(response => {
+                if(!response.ok) {
+                    response.text().then(text => { document.getElementById("error").innerText = text; });
+                }else{
+                    document.getElementById("error").innerText = "Anki Deck generated succesfully!";
+
+                }
+            })
+
+            
+        });
+
+
+
+    </script>
+
+    <style>
+
+        * {
+
+            margin: 1em;
+
+        }
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        textarea {
+
+            height: 60vh;
+            width: 50vw;
+
+
+        }
+    </style>
+    
+</body>
+
+
+
+
+</html>
